@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎮 Tank Battle Game</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-tank"></i> Tank Battle Game</h1>
+            <p class="subtitle">一个简单的双人坦克对战游戏</p>
+        </header>
+
+        <main>
+            <div class="game-area">
+                <div class="canvas-container">
+                    <canvas id="gameCanvas" width="800" height="600"></canvas>
+                    <div class="game-overlay" id="gameOverlay">
+                        <div class="overlay-content">
+                            <h2 id="gameTitle">Tank Battle</h2>
+                            <p id="gameMessage">准备开始游戏！</p>
+                            <button id="startButton" class="btn btn-primary">
+                                <i class="fas fa-play"></i> 开始游戏
+                            </button>
+                            <button id="resetButton" class="btn btn-secondary">
+                                <i class="fas fa-redo"></i> 重新开始
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="game-info">
+                    <div class="player-info">
+                        <div class="player player1">
+                            <h3><i class="fas fa-tank red"></i> 玩家1 (红色)</h3>
+                            <div class="stats">
+                                <p><i class="fas fa-heart"></i> 生命值: <span id="player1Health">100</span></p>
+                                <p><i class="fas fa-bullseye"></i> 得分: <span id="player1Score">0</span></p>
+                                <p><i class="fas fa-bolt"></i> 弹药: <span id="player1Ammo">10</span></p>
+                            </div>
+                            <div class="controls">
+                                <h4>控制键:</h4>
+                                <p>W/A/S/D - 移动</p>
+                                <p>空格键 - 发射</p>
+                            </div>
+                        </div>
+
+                        <div class="player player2">
+                            <h3><i class="fas fa-tank blue"></i> 玩家2 (蓝色)</h3>
+                            <div class="stats">
+                                <p><i class="fas fa-heart"></i> 生命值: <span id="player2Health">100</span></p>
+                                <p><i class="fas fa-bullseye"></i> 得分: <span id="player2Score">0</span></p>
+                                <p><i class="fas fa-bolt"></i> 弹药: <span id="player2Ammo">10</span></p>
+                            </div>
+                            <div class="controls">
+                                <h4>控制键:</h4>
+                                <p>方向键 - 移动</p>
+                                <p>Enter键 - 发射</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="game-controls">
+                        <button id="pauseButton" class="btn btn-warning">
+                            <i class="fas fa-pause"></i> 暂停游戏
+                        </button>
+                        <button id="soundToggle" class="btn btn-info">
+                            <i class="fas fa-volume-up"></i> 音效: 开
+                        </button>
+                        <button id="helpButton" class="btn btn-help">
+                            <i class="fas fa-question-circle"></i> 游戏说明
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="instructions">
+                <h3><i class="fas fa-info-circle"></i> 游戏说明</h3>
+                <ul>
+                    <li>使用键盘控制你的坦克移动和发射炮弹</li>
+                    <li>击中对方坦克获得分数</li>
+                    <li>生命值归零时游戏结束</li>
+                    <li>地图中的障碍物可以被炮弹破坏</li>
+                    <li>收集弹药箱补充弹药</li>
+                </ul>
+            </div>
+        </main>
+
+        <footer>
+            <p>Created with <i class="fas fa-heart"></i> by StevenWang6 | Hermes Test Project</p>
+            <p class="version">版本: 1.0.0 | 最后更新: 2026-04-15</p>
+        </footer>
+    </div>
+
+    <!-- 游戏脚本 -->
+    <script src="src/game.js"></script>
+    <script src="src/tank.js"></script>
+    <script src="src/bullet.js"></script>
+    <script src="src/map.js"></script>
+    <script src="src/main.js"></script>
+</body>
+</html>
