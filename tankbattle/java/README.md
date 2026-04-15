@@ -126,3 +126,58 @@ switch.enableDebug=false
 ## 📄 许可证
 
 MIT License - 详见 LICENSE 文件
+
+## 🖥️ WSL (Windows Subsystem for Linux) 运行指南
+
+如果你在 WSL 中运行此项目，Windows 中已安装 Java，请使用以下方法：
+
+### 方法1: 使用提供的脚本（推荐）
+```bash
+# 编译游戏
+./compile.sh
+
+# 运行游戏（英文模式，避免编码问题）
+./run-game-english.sh
+```
+
+### 方法2: 直接命令
+```bash
+# 编译
+"/mnt/c/Program Files/Java/jdk-26/bin/javac.exe" -d target/classes -cp "target/classes" src/main/java/com/tankbattle/*.java src/main/java/com/tankbattle/**/*.java
+
+# 运行
+"/mnt/c/Program Files/Java/jdk-26/bin/java.exe" -jar target/tank-battle-java.jar
+```
+
+### 编码问题解决
+如果遇到中文字符显示乱码，请使用英文模式运行：
+```bash
+./run-game-english.sh
+```
+
+或者设置环境变量：
+```bash
+export LANG=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
+```
+
+## 🎮 游戏控制说明（英文）
+
+### Basic Controls
+- **W/A/S/D**: Move tank
+- **Spacebar**: Fire bullet
+- **P**: Pause/Resume game
+- **T**: Enable switch menu
+- **ESC**: Exit game
+
+### Enable Switches (Press T in game)
+- **Key 1-5**: Toggle corresponding switch
+- **Enter**: Confirm and return to game
+- **ESC**: Cancel and return to game
+
+### Switch Functions
+1. **Sound Switch** - Control game sound effects
+2. **Collision Detection** - Control bullet collision
+3. **AI Switch** - Control enemy AI behavior
+4. **Powerup System** - Control powerup generation
+5. **Debug Mode** - Show debug information
