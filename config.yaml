@@ -1,0 +1,29 @@
+# Hermes Test Project Configuration
+project:
+  name: "hermestest"
+  description: "Test repository for Hermes Agent GitHub integration"
+  version: "1.0.0"
+  author: "StevenWang6"
+  created: "2026-04-15"
+
+repository:
+  url: "https://github.com/StevenWang6/hermestest"
+  type: "public"
+  default_branch: "main"
+
+features:
+  - "GitHub integration testing"
+  - "Multi-language examples"
+  - "CI/CD ready"
+  - "Documentation"
+
+languages:
+  - "JavaScript"
+  - "Python"
+  - "YAML"
+  - "Markdown"
+
+dependencies:
+  node: ">=18.0.0"
+  python: ">=3.8"
+  git: ">=2.30.0"

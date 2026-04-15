@@ -1,0 +1,27 @@
+{
+  "name": "hermestest",
+  "version": "1.0.0",
+  "description": "Test repository for Hermes Agent GitHub integration",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "node test.js",
+    "lint": "eslint .",
+    "format": "prettier --write ."
+  },
+  "keywords": [
+    "hermes",
+    "test",
+    "github",
+    "automation"
+  ],
+  "author": "StevenWang6",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/StevenWang6/hermestest.git"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
