@@ -34,3 +34,7 @@ dist/
 # 配置文件（包含敏感信息）
 *.properties
 *.config
+
+# 临时文件
+sources.txt
+*.txt
