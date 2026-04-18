@@ -1,0 +1,27 @@
+# Hermes Experiment Configuration
+
+## Environment Variables
+```
+HERMES_EXPERIMENT_MODE=true
+EXPERIMENT_LOG_LEVEL=debug
+```
+
+## Experiment Settings
+- **auto_cleanup**: true
+- **max_runtime**: 3600 seconds
+- **resource_limit**: 512MB memory
+
+## Feature Flags
+```
+feature.code_generation=true
+feature.multi_language=true
+feature.workflow_automation=true
+feature.integration_testing=false
+```
+
+## Logging Configuration
+```
+log_level: debug
+log_file: experiments.log
+log_rotation: daily
+```
