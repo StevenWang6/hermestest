@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{base :: layout(~{::title}, ~{::content}, ~{::scripts})}">
+<head>
+    <title th:text="${poll.title + ' - 在线投票系统'}">投票详情 - 在线投票系统</title>
+</head>
+<body>
+    <th:block th:fragment="content">
+        <div class="poll-detail">
+            <div class="poll-header">
+                <h1><i class="fas fa-poll-h"></i> <span th:text="${poll.title}"></span></h1>
+                <p th:if="${poll.description}" class="poll-description" th:text="${poll.description}"></p>
+                
+                <div class="poll-meta">
+                    <span><i class="far fa-calendar"></i> 创建时间: <span th:text="${poll.createdAt}"></span></span>
+                    <span th:classappend="${poll.active} ? 'active' : 'inactive'" class="poll-status">
+                        <i class="fas fa-circle"></i>
+                        <span th:text="${poll.active} ? '投票进行中' : '投票已结束'"></span>
+                    </span>
+                </div>
+            </div>
+
+            <div class="poll-content">
+                <div th:if="${poll.hasVoted or not poll.active}" class="results-section">
+                    <h2><i class="fas fa-chart-bar"></i> 投票结果</h2>
+                    <p class="total-votes">总票数: <strong th:text="${poll.totalVotes}"></strong></p>
+                    
+                    <div class="results-list">
+                        <div th:each="stat : ${poll.optionStats}" class="result-item">
+                            <div class="result-header">
+                                <span class="option-text" th:text="${stat.text}"></span>
+                                <span class="vote-count">
+                                    <span th:text="${stat.voteCount}"></span> 票 
+                                    (<span th:text="${#numbers.formatDecimal(stat.percentage, 1, 1)}"></span>%)
+                                </span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" th:style="'width: ' + ${stat.percentage} + '%'"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div th:if="${poll.hasVoted}" class="alert alert-success">
+                        <i class="fas fa-check-circle"></i> 您已经投过票了，感谢参与！
+                    </div>
+                </div>
+                
+                <div th:if="${not poll.hasVoted and poll.active}" class="vote-section">
+                    <h2><i class="fas fa-vote-yea"></i> 请选择您的投票</h2>
+                    <form id="voteForm">
+                        <div class="options-list">
+                            <div th:each="stat : ${poll.optionStats}" class="option-item">
+                                <label>
+                                    <input type="radio" name="optionId" th:value="${stat.id}" required>
+                                    <span class="option-text" th:text="${stat.text}"></span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-paper-plane"></i> 提交投票
+                            </button>
+                            <a th:href="@{/}" class="btn btn-outline">
+                                <i class="fas fa-arrow-left"></i> 返回首页
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="poll-actions">
+                <a th:href="@{/}" class="btn btn-outline">
+                    <i class="fas fa-arrow-left"></i> 返回投票列表
+                </a>
+                <div class="share-buttons">
+                    <span>分享投票:</span>
+                    <button class="btn btn-share" onclick="shareToTwitter()">
+                        <i class="fab fa-twitter"></i> Twitter
+                    </button>
+                    <button class="btn btn-share" onclick="shareToFacebook()">
+                        <i class="fab fa-facebook"></i> Facebook
+                    </button>
+                </div>
+            </div>
+        </div>
+    </th:block>
+
+    <th:block th:fragment="scripts">
+        <script>
+            document.getElementById('voteForm')?.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const formData = new FormData(this);
+                const optionId = formData.get('optionId');
+                
+                if (!optionId) {
+                    alert('请选择一个投票选项！');
+                    return;
+                }
+                
+                const pollId = [[${poll.id}]];
+                
+                fetch('/poll/' + pollId + '/vote', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ optionId: parseInt(optionId) })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert(data.message);
+                        window.location.reload();
+                    } else {
+                        alert(data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('投票提交失败，请稍后重试');
+                });
+            });
+
+            function shareToTwitter() {
+                const text = encodeURIComponent("我正在参与投票: [[${poll.title}]]");
+                const url = encodeURIComponent(window.location.href);
+                window.open(`https://twitter.com/intent/tweet?text=${text}&url=${url}`, '_blank');
+            }
+
+            function shareToFacebook() {
+                const url = encodeURIComponent(window.location.href);
+                window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank');
+            }
+        </script>
+    </th:block>
+</body>
+</html>

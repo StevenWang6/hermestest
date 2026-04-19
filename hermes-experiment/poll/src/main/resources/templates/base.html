@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${#strings.isEmpty(title) ? '在线投票系统 - Hermes Experiment' : title + ' - 在线投票系统'}">
+        在线投票系统 - Hermes Experiment
+    </title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <a th:href="@{/}" class="logo">
+                <i class="fas fa-vote-yea"></i>
+                Hermes投票系统
+            </a>
+            <div class="nav-links">
+                <a th:href="@{/}"><i class="fas fa-home"></i> 首页</a>
+                <a th:href="@{/create}"><i class="fas fa-plus-circle"></i> 创建投票</a>
+                <a th:href="@{/admin}"><i class="fas fa-cog"></i> 管理</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div th:if="${success}" class="alert alert-success">
+            <i class="fas fa-check-circle"></i> <span th:text="${success}"></span>
+        </div>
+        
+        <div th:if="${error}" class="alert alert-error">
+            <i class="fas fa-exclamation-circle"></i> <span th:text="${error}"></span>
+        </div>
+
+        <div th:insert="~{this :: content}"></div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>© 2024 Hermes Experiment - 在线投票系统</p>
+            <p class="footer-links">
+                <a href="#"><i class="fab fa-github"></i> GitHub</a>
+                <a href="#"><i class="fas fa-book"></i> 文档</a>
+                <a href="#"><i class="fas fa-envelope"></i> 联系</a>
+            </p>
+        </div>
+    </footer>
+
+    <script th:src="@{/js/main.js}"></script>
+    <div th:insert="~{this :: scripts}"></div>
+</body>
+</html>
